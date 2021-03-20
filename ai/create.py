@@ -21,22 +21,22 @@ def create_node_groups_edges(json_path, node_types, fields):
 
     # This list holds all edges.
     edges = [
-        (edge['data']['source'],
+        (edge['source'],
          {},
-        edge['data']['target']) 
-        for edge in file['elements']['edges']
+        edge['target']) 
+        for edge in file['edges']
     ]
 
     # Iterate all nodes found in the discourse json.
-    for node in file['elements']['nodes']:
+    for node in file['nodes']:
 
         # Find the type of the label, if it exists.
-        label = node['data'].get('type')
+        label = node.get('type')
 
         if label is not None:
             label = label.capitalize()
             node_groups[label].append({
-               field: node['data'].get(field)
+               field: node.get(field)
                for field in fields
             })
 

@@ -6,18 +6,28 @@ import fasttext
 import functools
 import ai.config as config
 
-def load_models():
-    """
-    Function which loads the english & greek 
-    NLP models, as well as the language detection model.
-    This needs to run once since all models need a few seconds to load.
-    """
-    return (
-        spacy.load('en_core_web_lg'),
-        spacy.load('el_core_news_lg'),
-        fasttext.load_model(os.path.realpath(
-         os.path.join(sys.path[0], 'ai\lid.176.bin')))
-    )
+class Models:
+    __en_nlp = None
+    __el_nlp = None
+    __ang_det = None
+
+    @classmethod
+    def load_models(cls):
+        """
+        Class method which loads the english & greek
+        NLP models, as well as the language detection model.
+        This needs to run once since all models need a few seconds to load.
+        """
+        if cls.__en_nlp is None:
+            cls.__en_nlp = spacy.load('en_core_web_lg')
+            cls.__el_nlp = spacy.load('el_core_news_lg')
+            cls.__ang_det = fasttext.load_model('/downloads/lid.176.bin')
+
+        return (
+            cls.__en_nlp,
+            cls.__el_nlp,
+            cls.__ang_det
+        )
 
 
 def detect_language(model, text):

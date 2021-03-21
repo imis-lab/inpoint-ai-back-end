@@ -2,7 +2,7 @@ from itertools import product # Cartesian
 from spacy.language import Language
 from spacy.tokens import Doc
 from ai.utils import (
-    load_models, detect_language, preprocess
+    detect_language, preprocess
 )
 
 

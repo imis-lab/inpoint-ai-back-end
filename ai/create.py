@@ -5,14 +5,11 @@ from ai.similarity import calc_similarity_pairs
 from ai.utils import counter
 
 @counter
-def create_node_groups_edges(json_path, node_types, fields):
+def create_node_groups_edges(discourse, node_types, fields):
     """
     Function that creates the node groups, and edges
     in-memory objects from the json document.
     """
-    with open(json_path) as f:
-        file = json.load(f)
-
     # This dictionary separates different types of nodes.
     node_groups = {
         k: [] 
@@ -21,14 +18,14 @@ def create_node_groups_edges(json_path, node_types, fields):
 
     # This list holds all edges.
     edges = [
-        (edge['source'],
+        (edge['sourceId'],
          {},
-        edge['target']) 
-        for edge in file['edges']
+        edge['targetId'])
+        for edge in discourse['edges']
     ]
 
     # Iterate all nodes found in the discourse json.
-    for node in file['nodes']:
+    for node in discourse['nodes']:
 
         # Find the type of the label, if it exists.
         label = node.get('type')

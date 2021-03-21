@@ -1,21 +1,24 @@
+from decouple import config
+
+
 # Initial Setup
-input_path = r'C:\Users\Nick\Desktop\example.json'
-debug = True
+debug = config('AI_BACKEND_DEBUG', cast=bool)
 
 
 # Connection data
-uri = 'bolt://localhost:7687'
+BOLT_PORT = config('NEO4J_BOLT_PORT', cast=int)
+NEO4J_URL = config('NEO4J_URL')
+uri = f'bolt://{NEO4J_URL}:{BOLT_PORT}'
 username = 'neo4j'
-password = '123'
+password = config('NEO4J_INITDB_ROOT_PASSWORD')
 
 
 # Supported data types
 node_types = ['Issue', 'Solution', 'Note', 'Position-against', 'Position-in-favor']
-fields = ['author', 'date', 'dislikes', 'id', 'likes', 'text']
+fields = ['authorId', 'dislikes', 'id', 'likes', 'text']
 
 
 # Algorithmic values
 cutoff = 0.5
 top_n = 10
 top_sent = 5
-

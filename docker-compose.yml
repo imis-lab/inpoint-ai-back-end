@@ -14,7 +14,6 @@ services:
     ports:
       - ${NEO4J_HTTP_PORT}:7474
       - ${NEO4J_BOLT_PORT}:7687
-    network_mode: '${AI_BACKEND_NETWORK_MODE}'
   ai_backend:
     build: .
     command: python main.py

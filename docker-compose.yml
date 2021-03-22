@@ -24,4 +24,3 @@ services:
     depends_on:
       - ai_db
     container_name: ${AI_BACKEND_CONTAINER_NAME}
-    network_mode: '${AI_BACKEND_NETWORK_MODE}'

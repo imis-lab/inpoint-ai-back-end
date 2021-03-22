@@ -48,12 +48,14 @@ def add_discourses(discourses):
                                 en_nlp, el_nlp, lang_det, config.cutoff)
 
         # Calculate the community score for the similarity graph.
-        with GraphAlgos(database, ['Node'], ['is_similar']) as graph:
-            graph.louvain(write_property = 'community')
+        with GraphAlgos(database, ['Node'], ['is_similar']) as graph_algos:
+            graph_algos.louvain(write_property = 'community')
 
+        summarizations = summarize_communities(database, en_nlp, el_nlp, lang_det,
+                                              config.top_n, config.top_sent).items()
+        print(summarizations)
         # Summarization debug.
-        for id, item in summarize_communities(database, en_nlp, el_nlp, lang_det,
-                                              config.top_n, config.top_sent).items():
+        for id, item in summarizations:
             print(f'{id}: {item[0]}\n')
             print(f'{id}: {item[1]}\n')
             print(f'{id}: {item[2]}\n')

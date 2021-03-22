@@ -57,8 +57,7 @@ def summarize_communities(database, en_nlp, el_nlp, lang_det, top_n, top_sent):
         results[community] = [
             ids,
             text_summarization(doc, nlp, top_n, top_sent),
-            keyword_extraction(doc, nlp, top_n),
-            remove_stopwords_from_keyphrases(keyword_extraction(doc, nlp, top_n), nlp)
+            keyword_extraction(doc, nlp, top_n)
         ]
 
     return results
